@@ -342,6 +342,7 @@ function html_title( $p_page_title = null ) {
 function html_css() {
 	$t_css_url = config_get( 'css_include_file' );
 	echo "\t", '<link rel="stylesheet" type="text/css" href="', string_sanitize_url( helper_mantis_url( $t_css_url ), true ), '" />', "\n";
+    echo "\t", '<link rel="stylesheet" type="text/css" href="', string_sanitize_url( helper_mantis_url( 'css/jquery-ui-1.9.0.custom.min.css' ), true ), '" />', "\n";
 
 	# Add right-to-left css if needed
 	if( lang_get( 'directionality' ) == 'rtl' ) {
@@ -673,6 +674,13 @@ function html_footer( $p_file = null ) {
  */
 function html_body_end() {
 	event_signal( 'EVENT_LAYOUT_BODY_END' );
+
+    html_javascript_link( 'jquery-1.8.2.js' );
+    echo "\t", '<script type="text/javascript"><!--', "\n";
+    echo "\t\t", '$.noConflict();', "\n";
+    echo "\t", '// --></script>', "\n";
+    html_javascript_link( 'jquery-ui-1.9.0.custom.js' );
+    html_javascript_link( 'datepicker.cfg.js' );
 
 	echo '</body>', "\n";
 }
